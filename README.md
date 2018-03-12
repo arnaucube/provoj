@@ -1,6 +1,19 @@
 # provoj
 
-Simple library to check the endpoints of an RESTful API.
+Simple library to test the endpoints of an RESTful API.
+
+Check values, integrated with requests python library.
+
+For python version>3
+
+## Installation
+
+Requires to have installed 'requests' library.
+
+Install provoj by:
+```
+pip install provoj
+```
 
 ### Usage
 Import the provoj library, and the requests library
@@ -51,7 +64,7 @@ test.length("checking the length of the array animals", animals, 3)# test.length
 Check for request status
 ```python
 r = requests.get("https://api.github.com/users/arnaucode/repos")
-test.status("get api.github.com/users/arnaucode/repos", r)# test.status(check description, request_response)
+test.rStatus("get api.github.com/users/arnaucode/repos", r)# test.rStatus(check description, request_response)
 ```
 
 ### Full example
