@@ -19,28 +19,28 @@ class NewTest(object):
             pc.blue("- unnamed test")
     def equal(self, action, a, b):
         if a != b:
-            pc.error(action + " - Error, '" + str(a) + "' should be equal to '" + str(b) + "'")
+            pc.error("{} - Error, {} should be equal to {}".format(action, a, b))
             self.scores["error"] += 1
         else:
             pc.checked(action)
             self.scores["success"] += 1
     def notequal(self, action, a, b):
         if a == b:
-            pc.error(action + " - Error, '" + str(a) + "' should be not equal to '" + str(b) + "'")
+            pc.error("{} - Error, {} should be not equal to {}".format(action, a, b))
             self.scores["error"] += 1
         else:
             pc.checked(action)
             self.scores["success"] += 1
     def bigger(self, action, a, b):
         if a < b:
-            pc.error(action + " - Error, '" + str(a) + "' should be bigger than '" + str(b) + "'")
+            pc.error("{} - Error, {} should be bigger than {}".format(action, a, b))
             self.scores["error"] += 1
         else:
             pc.checked(action)
             self.scores["success"] += 1
     def smaller(self, action, a, b):
         if a > b:
-            pc.error(action + " - Error, '" + str(a) + "' should be smaller than '" + str(b) + "'")
+            pc.error("{} - Error, {} should be smaller than {}".format(action, a, b))
             self.scores["error"] += 1
         else:
             pc.checked(action)
@@ -48,7 +48,7 @@ class NewTest(object):
 
     def length(self, action, a, l):
         if len(a) != l:
-            pc.error(action + " - Error, actual length is '" + str(len(a)) + "', expected to be '" + str(l) + "'")
+            pc.error("{} - Error, actual length is {}, expected to be {}".format(action, a, l))
             self.scores["error"] += 1
         else:
             pc.checked(action)
@@ -57,9 +57,9 @@ class NewTest(object):
     def rStatus(self, action, r, verbose=False):
         if r.status_code < 200 or r.status_code > 299:
             if verbose:
-                pc.error(action + " - Error " + str(r.status_code) + ": " + r.text)
+                pc.error("{} - Error {}: {}".format(action, r.status_code, r.text))
             else:
-                pc.error(action + " - Error " + str(r.status_code))
+                pc.error("{} - Error {}".format(action, r.status_code))
 
             self.scores["error"] += 1
         else:
@@ -68,11 +68,11 @@ class NewTest(object):
 
     def printScores(self):
         pc.purple("     Test title: " + self.title)
-        score = math.ceil(( self.scores["success"]/(self.scores["success"]+self.scores["error"]) )*100)
+        success = self.scores["success"]
+        error = self.scores["error"]
+        score = math.ceil((success/(success+error))*100)
         elapsed = datetime.datetime.now() - self.time
-        pc.purple("     Score: " + str(score)
-            + "% (" + str(self.scores["success"]) + "/" + str(self.scores["success"] + self.scores["error"]) + ")"
-            + " Time benchmark: " + str(elapsed))
+        pc.purple("     Score: {} % ({}/{}) Time benchmark: {}".format(score, success, success+error, elapsed))
 
 
 '''
